@@ -14,8 +14,44 @@ void main() {
       expect(SnapshotConfig.desktop.devicePixelRatio, equals(1.0));
     });
 
-    test('allDevices contains 5 configs', () {
-      expect(SnapshotConfig.allDevices.length, equals(5));
+    test('allDevices contains 8 configs', () {
+      expect(SnapshotConfig.allDevices.length, equals(8));
+    });
+
+    test('pixel8 has correct dimensions', () {
+      expect(SnapshotConfig.pixel8.size, equals(const Size(412, 924)));
+      expect(SnapshotConfig.pixel8.devicePixelRatio, equals(2.75));
+    });
+
+    test('galaxyS24 has correct dimensions', () {
+      expect(SnapshotConfig.galaxyS24.size, equals(const Size(360, 780)));
+      expect(SnapshotConfig.galaxyS24.devicePixelRatio, equals(3.0));
+    });
+
+    test('iPhoneSE has correct dimensions', () {
+      expect(SnapshotConfig.iPhoneSE.size, equals(const Size(375, 667)));
+      expect(SnapshotConfig.iPhoneSE.devicePixelRatio, equals(2.0));
+    });
+
+    test('allDevices contains new presets', () {
+      expect(SnapshotConfig.allDevices, contains(SnapshotConfig.pixel8));
+      expect(SnapshotConfig.allDevices, contains(SnapshotConfig.galaxyS24));
+      expect(SnapshotConfig.allDevices, contains(SnapshotConfig.iPhoneSE));
+    });
+
+    test('landscape swaps dimensions', () {
+      final landscape = SnapshotConfig.iPhone14.landscape();
+      expect(landscape.size.width, equals(844));
+      expect(landscape.size.height, equals(390));
+      expect(landscape.name, equals('iPhone 14 Landscape'));
+      expect(landscape.devicePixelRatio, equals(3.0));
+    });
+
+    test('withDarkMode adds suffix', () {
+      final dark = SnapshotConfig.iPhone14.withDarkMode();
+      expect(dark.name, equals('iPhone 14 Dark'));
+      expect(dark.size, equals(SnapshotConfig.iPhone14.size));
+      expect(dark.devicePixelRatio, equals(3.0));
     });
 
     test('withLargeText creates accessibility variant', () {

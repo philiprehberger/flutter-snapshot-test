@@ -46,6 +46,24 @@ class SnapshotConfig {
     devicePixelRatio: 2.0,
   );
 
+  static const pixel8 = SnapshotConfig(
+    name: 'Pixel 8',
+    size: Size(412, 924),
+    devicePixelRatio: 2.75,
+  );
+
+  static const galaxyS24 = SnapshotConfig(
+    name: 'Galaxy S24',
+    size: Size(360, 780),
+    devicePixelRatio: 3.0,
+  );
+
+  static const iPhoneSE = SnapshotConfig(
+    name: 'iPhone SE',
+    size: Size(375, 667),
+    devicePixelRatio: 2.0,
+  );
+
   static const desktop = SnapshotConfig(
     name: 'Desktop',
     size: Size(1440, 900),
@@ -57,9 +75,28 @@ class SnapshotConfig {
     iPhone14,
     iPhone14ProMax,
     pixel7,
+    pixel8,
+    galaxyS24,
+    iPhoneSE,
     iPadPro12,
     desktop,
   ];
+
+  /// Returns a landscape variant with width and height swapped.
+  SnapshotConfig landscape() => SnapshotConfig(
+        name: '$name Landscape',
+        size: Size(size.height, size.width),
+        devicePixelRatio: devicePixelRatio,
+        textScaleFactor: textScaleFactor,
+      );
+
+  /// Returns a dark mode variant with name suffixed.
+  SnapshotConfig withDarkMode() => SnapshotConfig(
+        name: '$name Dark',
+        size: size,
+        devicePixelRatio: devicePixelRatio,
+        textScaleFactor: textScaleFactor,
+      );
 
   /// Accessibility variant with large text.
   SnapshotConfig withLargeText() => SnapshotConfig(
