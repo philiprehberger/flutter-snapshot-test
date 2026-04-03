@@ -82,4 +82,101 @@ class SnapshotTester {
       theme: darkTheme ?? ThemeData.dark(),
     );
   }
+
+  /// Test a widget in both portrait and landscape orientations.
+  static Future<void> testOrientations(
+    WidgetTester tester, {
+    required Widget widget,
+    required String goldenFilePrefix,
+    SnapshotConfig? config,
+    ThemeData? theme,
+  }) async {
+    final portrait = config ?? SnapshotConfig.iPhone14;
+    final landscape = portrait.landscape();
+
+    await testWidget(
+      tester,
+      widget: widget,
+      goldenFileName: '${goldenFilePrefix}_portrait.png',
+      config: portrait,
+      theme: theme,
+    );
+
+    await testWidget(
+      tester,
+      widget: widget,
+      goldenFileName: '${goldenFilePrefix}_landscape.png',
+      config: landscape,
+      theme: theme,
+    );
+  }
+
+  /// Test multiple widget states against golden files.
+  static Future<void> testStates(
+    WidgetTester tester, {
+    required Map<String, Widget> states,
+    required String goldenFilePrefix,
+    SnapshotConfig? config,
+    ThemeData? theme,
+  }) async {
+    final deviceConfig = config ?? SnapshotConfig.iPhone14;
+    for (final entry in states.entries) {
+      final safeName =
+          entry.key.toLowerCase().replaceAll(RegExp(r'[^a-z0-9]'), '_');
+      await testWidget(
+        tester,
+        widget: entry.value,
+        goldenFileName: '${goldenFilePrefix}_$safeName.png',
+        config: deviceConfig,
+        theme: theme,
+      );
+    }
+  }
+
+  /// Test a widget at different text scale factors for accessibility.
+  static Future<void> testAccessibility(
+    WidgetTester tester, {
+    required Widget widget,
+    required String goldenFilePrefix,
+    SnapshotConfig? config,
+    ThemeData? theme,
+  }) async {
+    final baseConfig = config ?? SnapshotConfig.iPhone14;
+
+    await testWidget(
+      tester,
+      widget: widget,
+      goldenFileName: '${goldenFilePrefix}_normal.png',
+      config: baseConfig,
+      theme: theme,
+    );
+
+    final largeText = SnapshotConfig(
+      name: '${baseConfig.name} (large text)',
+      size: baseConfig.size,
+      devicePixelRatio: baseConfig.devicePixelRatio,
+      textScaleFactor: 1.5,
+    );
+    await testWidget(
+      tester,
+      widget: widget,
+      goldenFileName: '${goldenFilePrefix}_large_text.png',
+      config: largeText,
+      theme: theme,
+    );
+
+    final extraLargeText = SnapshotConfig(
+      name: '${baseConfig.name} (extra large text)',
+      size: baseConfig.size,
+      devicePixelRatio: baseConfig.devicePixelRatio,
+      textScaleFactor: 2.0,
+    );
+    await testWidget(
+      tester,
+      widget: widget,
+      goldenFileName: '${goldenFilePrefix}_extra_large_text.png',
+      config: extraLargeText,
+      theme: theme,
+    );
+  }
 }

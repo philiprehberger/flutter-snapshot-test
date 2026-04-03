@@ -1,7 +1,7 @@
 name: philiprehberger_snapshot_test
 description: >-
   Visual snapshot testing for Flutter widgets with golden file comparison
-version: 0.1.0
+version: 0.2.0
 homepage: https://philiprehberger.com/open-source-packages/dart/philiprehberger_snapshot_test
 repository: https://github.com/philiprehberger/flutter-snapshot-test
 issue_tracker: https://github.com/philiprehberger/flutter-snapshot-test/issues

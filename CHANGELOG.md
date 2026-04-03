@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-02
+
+### Added
+- `SnapshotConfig.landscape()` for orientation testing
+- `SnapshotConfig.withDarkMode()` for dark mode variants
+- New device presets: `pixel8`, `galaxyS24`, `iPhoneSE`
+- `SnapshotTester.testOrientations()` for portrait/landscape comparison
+- `SnapshotTester.testStates()` for multi-state widget captures
+- `SnapshotTester.testAccessibility()` for text scale variant testing
+
 ## [0.1.0] - 2026-04-01
 
 ### Added

@@ -30,6 +30,34 @@
 //       goldenFilePrefix: 'goldens/my_widget',
 //     );
 //   });
+//
+//   testWidgets('orientation testing', (tester) async {
+//     await SnapshotTester.testOrientations(
+//       tester,
+//       widget: const MyWidget(),
+//       goldenFilePrefix: 'goldens/my_widget',
+//     );
+//   });
+//
+//   testWidgets('state testing', (tester) async {
+//     await SnapshotTester.testStates(
+//       tester,
+//       states: {
+//         'empty': const MyWidget(items: []),
+//         'loaded': const MyWidget(items: ['a', 'b']),
+//         'error': const MyWidget(error: 'Something went wrong'),
+//       },
+//       goldenFilePrefix: 'goldens/my_widget',
+//     );
+//   });
+//
+//   testWidgets('accessibility testing', (tester) async {
+//     await SnapshotTester.testAccessibility(
+//       tester,
+//       widget: const MyWidget(),
+//       goldenFilePrefix: 'goldens/my_widget',
+//     );
+//   });
 // }
 
 void main() {

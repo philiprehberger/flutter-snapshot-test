@@ -17,7 +17,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  philiprehberger_snapshot_test: ^0.1.0
+  philiprehberger_snapshot_test: ^0.2.0
 ```
 
 Then run:
@@ -92,9 +92,53 @@ testWidgets('custom device', (tester) async {
 });
 ```
 
+### Orientation Testing
+
+Test a widget in both portrait and landscape orientations:
+
+```dart
+testWidgets('orientation snapshot', (tester) async {
+  await SnapshotTester.testOrientations(
+    tester,
+    widget: const MyWidget(),
+    goldenFilePrefix: 'goldens/my_widget',
+  );
+});
+```
+
+### State Testing
+
+Test multiple widget states with a single call:
+
+```dart
+testWidgets('state snapshots', (tester) async {
+  await SnapshotTester.testStates(
+    tester,
+    states: {
+      'empty': const MyWidget(items: []),
+      'loaded': const MyWidget(items: ['a', 'b']),
+      'error': const MyWidget(error: 'Something went wrong'),
+    },
+    goldenFilePrefix: 'goldens/my_widget',
+  );
+});
+```
+
 ### Accessibility Testing
 
-Test with large text scaling for accessibility:
+Test with multiple text scale factors for accessibility:
+
+```dart
+testWidgets('accessibility snapshot', (tester) async {
+  await SnapshotTester.testAccessibility(
+    tester,
+    widget: const MyWidget(),
+    goldenFilePrefix: 'goldens/my_widget',
+  );
+});
+```
+
+Test with large text scaling using config variants:
 
 ```dart
 testWidgets('large text snapshot', (tester) async {
@@ -117,10 +161,15 @@ testWidgets('large text snapshot', (tester) async {
 | `size` | Device screen size |
 | `devicePixelRatio` | Device pixel ratio (default: 1.0) |
 | `textScaleFactor` | Text scale factor (default: 1.0) |
+| `landscape()` | Returns a copy with width/height swapped |
+| `withDarkMode()` | Returns a copy with name suffixed ' Dark' |
 | `withLargeText()` | Returns a copy with 1.5x text scale |
 | `iPhone14` | Preset: 390x844 @3x |
 | `iPhone14ProMax` | Preset: 430x932 @3x |
 | `pixel7` | Preset: 412x915 @2.75x |
+| `pixel8` | Preset: 412x924 @2.75x |
+| `galaxyS24` | Preset: 360x780 @3x |
+| `iPhoneSE` | Preset: 375x667 @2x |
 | `iPadPro12` | Preset: 1024x1366 @2x |
 | `desktop` | Preset: 1440x900 @1x |
 | `allDevices` | List of all preset configs |
@@ -141,6 +190,9 @@ testWidgets('large text snapshot', (tester) async {
 | `testWidget(tester, {widget, goldenFileName, config?, theme?, locale?})` | Test a widget against a single golden file |
 | `testMultiDevice(tester, {widget, goldenFilePrefix, configs?, theme?})` | Test across multiple device configurations |
 | `testThemes(tester, {widget, goldenFilePrefix, config?, lightTheme?, darkTheme?})` | Test with light and dark themes |
+| `testOrientations(tester, {widget, goldenFilePrefix, config?, theme?})` | Test portrait and landscape orientations |
+| `testStates(tester, {states, goldenFilePrefix, config?, theme?})` | Test multiple widget states |
+| `testAccessibility(tester, {widget, goldenFilePrefix, config?, theme?})` | Test normal, large, and extra large text |
 
 ## Development
 
