@@ -4,6 +4,8 @@
 [![pub package](https://img.shields.io/pub/v/philiprehberger_snapshot_test.svg)](https://pub.dev/packages/philiprehberger_snapshot_test)
 [![Last updated](https://img.shields.io/github/last-commit/philiprehberger/flutter-snapshot-test)](https://github.com/philiprehberger/flutter-snapshot-test/commits/main)
 
+![philiprehberger_snapshot_test](https://raw.githubusercontent.com/philiprehberger/flutter-snapshot-test/main/package-card.webp)
+
 Visual snapshot testing for Flutter widgets with golden file comparison
 
 ## Requirements
@@ -17,7 +19,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  philiprehberger_snapshot_test: ^0.2.0
+  philiprehberger_snapshot_test: ^0.3.0
 ```
 
 Then run:
@@ -151,6 +153,21 @@ testWidgets('large text snapshot', (tester) async {
 });
 ```
 
+### Locale Testing
+
+Render the same widget across multiple locales for i18n verification:
+
+```dart
+testWidgets('locale snapshots', (tester) async {
+  await SnapshotTester.testLocales(
+    tester,
+    widget: const MyWidget(),
+    goldenFilePrefix: 'goldens/my_widget',
+    locales: const [Locale('en'), Locale('es'), Locale('ar')],
+  );
+});
+```
+
 ## API
 
 ### `SnapshotConfig`
@@ -166,6 +183,7 @@ testWidgets('large text snapshot', (tester) async {
 | `withLargeText()` | Returns a copy with 1.5x text scale |
 | `iPhone14` | Preset: 390x844 @3x |
 | `iPhone14ProMax` | Preset: 430x932 @3x |
+| `iPhone15Pro` | Preset: 393x852 @3x |
 | `pixel7` | Preset: 412x915 @2.75x |
 | `pixel8` | Preset: 412x924 @2.75x |
 | `galaxyS24` | Preset: 360x780 @3x |
@@ -192,6 +210,7 @@ testWidgets('large text snapshot', (tester) async {
 | `testThemes(tester, {widget, goldenFilePrefix, config?, lightTheme?, darkTheme?})` | Test with light and dark themes |
 | `testOrientations(tester, {widget, goldenFilePrefix, config?, theme?})` | Test portrait and landscape orientations |
 | `testStates(tester, {states, goldenFilePrefix, config?, theme?})` | Test multiple widget states |
+| `testLocales(tester, {widget, goldenFilePrefix, locales, config?, theme?})` | Render across multiple locales for i18n |
 | `testAccessibility(tester, {widget, goldenFilePrefix, config?, theme?})` | Test normal, large, and extra large text |
 
 ## Development

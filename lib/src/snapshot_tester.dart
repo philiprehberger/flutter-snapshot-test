@@ -133,6 +133,34 @@ class SnapshotTester {
     }
   }
 
+  /// Test a widget across multiple locales for internationalization.
+  ///
+  /// Renders the widget once per locale and produces a golden file
+  /// suffixed with the locale's `toLanguageTag()` value. Useful for
+  /// catching translation overflow, RTL layout bugs, and language-specific
+  /// font fallback issues.
+  static Future<void> testLocales(
+    WidgetTester tester, {
+    required Widget widget,
+    required String goldenFilePrefix,
+    required List<Locale> locales,
+    SnapshotConfig? config,
+    ThemeData? theme,
+  }) async {
+    final deviceConfig = config ?? SnapshotConfig.iPhone14;
+    for (final locale in locales) {
+      final tag = locale.toLanguageTag().toLowerCase().replaceAll('-', '_');
+      await testWidget(
+        tester,
+        widget: widget,
+        goldenFileName: '${goldenFilePrefix}_$tag.png',
+        config: deviceConfig,
+        theme: theme,
+        locale: locale,
+      );
+    }
+  }
+
   /// Test a widget at different text scale factors for accessibility.
   static Future<void> testAccessibility(
     WidgetTester tester, {

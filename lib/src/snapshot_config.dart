@@ -34,6 +34,12 @@ class SnapshotConfig {
     devicePixelRatio: 3.0,
   );
 
+  static const iPhone15Pro = SnapshotConfig(
+    name: 'iPhone 15 Pro',
+    size: Size(393, 852),
+    devicePixelRatio: 3.0,
+  );
+
   static const pixel7 = SnapshotConfig(
     name: 'Pixel 7',
     size: Size(412, 915),
@@ -74,6 +80,7 @@ class SnapshotConfig {
   static const List<SnapshotConfig> allDevices = [
     iPhone14,
     iPhone14ProMax,
+    iPhone15Pro,
     pixel7,
     pixel8,
     galaxyS24,

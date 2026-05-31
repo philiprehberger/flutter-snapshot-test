@@ -14,8 +14,21 @@ void main() {
       expect(SnapshotConfig.desktop.devicePixelRatio, equals(1.0));
     });
 
-    test('allDevices contains 8 configs', () {
-      expect(SnapshotConfig.allDevices.length, equals(8));
+    test('allDevices contains 9 configs', () {
+      expect(SnapshotConfig.allDevices.length, equals(9));
+    });
+
+    test('iPhone15Pro has correct dimensions', () {
+      expect(SnapshotConfig.iPhone15Pro.size, equals(const Size(393, 852)));
+      expect(SnapshotConfig.iPhone15Pro.devicePixelRatio, equals(3.0));
+      expect(SnapshotConfig.iPhone15Pro.name, equals('iPhone 15 Pro'));
+    });
+
+    test('allDevices includes iPhone15Pro', () {
+      expect(
+        SnapshotConfig.allDevices,
+        contains(SnapshotConfig.iPhone15Pro),
+      );
     });
 
     test('pixel8 has correct dimensions', () {

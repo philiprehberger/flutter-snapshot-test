@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-30
+
+### Added
+- `SnapshotConfig.iPhone15Pro` preset (393x852 @3x), now included in `allDevices`
+- `SnapshotTester.testLocales()` for rendering widgets across multiple locales — useful for catching i18n overflow, RTL layout bugs, and font fallback issues
+
+### Changed
+- Reversed barrel files so `lib/philiprehberger_snapshot_test.dart` is the primary (per pub.dev validation requirement); `lib/snapshot_test.dart` now re-exports it
+
 ## [0.2.0] - 2026-04-02
 
 ### Added
